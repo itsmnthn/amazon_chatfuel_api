@@ -1,1 +1,1 @@
-web: gunicorn run:app --log-file=-
+web: gunicorn amazon_to_chatfuel_api:app --log-file=-
