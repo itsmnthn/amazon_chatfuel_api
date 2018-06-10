@@ -21,13 +21,12 @@ AWS_ASSOCIATE_TAG = "uberminicourse-20"
 link = "https://amazon-to-chatfuel-api.herokuapp.com"
 
 
-def queryToGetASINs(searchterm="iphone"):
+def queryToGetASINs(searchterm):
     """Accepts search term and searches it through Amazon API
         and returns ASINs of first 9 product
 
     Keyword Arguments:
-            searchterm {str} -- search term that you want to search on
-                        Amazon (default: {"iphone"})
+            searchterm {str} -- search term that you want to search on Amazon
 
     Returns:
             [list] -- first 9 ASINs that are returned by Amazon API
