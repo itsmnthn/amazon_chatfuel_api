@@ -4,7 +4,8 @@ import json
 import xmltodict
 import bottlenose
 
-from flask import Flask, jsonify, request
+from collections import OrderedDict
+from flask import Flask, jsonify, request, current_app
 
 
 # Your Access Key ID, as taken from the Your Account page
@@ -17,7 +18,7 @@ AWS_SECRET_ACCESS_KEY = "UFggpYybRfa4ba5ZZ6G8qk/iP8pySLWTcFAn1r95"
 # Your Associate Tag
 AWS_ASSOCIATE_TAG = "uberminicourse-20"
 
-link = "https://amazon123-app.herokuapp.com/"
+link = "https://amazon-to-chatfuel-api.herokuapp.com"
 
 
 def queryToGetASINs(searchterm="iphone"):
@@ -51,33 +52,40 @@ app = Flask(__name__, static_folder="static")
 
 @app.route('/detail/<keyword>')
 def sendList(keyword):
-    """This function called vai URL
-
+    """search key word on Amazon.com and return JSON API
+    
     Arguments:
-        keyword {str} -- search term
-
+        keyword {str} -- keyword that will be searched on Amazon
+    
     Returns:
-        jsonify -- json object that contains json output
+        flask.current_app -- returns JSON as response with MIME
     """
     # Get 9 ASINs for search term passed as searchterm below
     ASINs = queryToGetASINs(searchterm=keyword)
     print(ASINs)
     if ASINs:
-        send = {
-            "messages": [
-                {
-                    "attachment": {
-                        "type": "template",
-                        "payload": {
-                                "template_type": "generic",
-                                "image_aspect_ratio": "square",
-                                "elements": CreateElement(ASINs)
-                        }
-                    }
-                }
-            ]
-        }
-    return jsonify(send)
+        json_temp = OrderedDict()
+        messages = OrderedDict()
+        attachment = OrderedDict()
+        payload = OrderedDict()
+        message = []
+
+        payload['template_type'] = 'generic'
+        payload['image_aspect_ratio'] = 'square'
+        payload['elements'] = CreateElement(ASINs)
+
+        attachment['type'] = "template"
+        attachment['payload'] = payload
+
+        messages['attachment'] = attachment
+        message.append(messages)
+
+        json_temp["messages"] = message
+
+    return current_app.response_class(
+        json.dumps(json_temp, indent=4, separators=(',', ': ')) + '\n',
+        mimetype=current_app.config['JSONIFY_MIMETYPE']
+    )
 
 
 def CreateElement(list_name):
@@ -86,7 +94,7 @@ def CreateElement(list_name):
 
     for i in list_name:
         print("************ = {}".format(i))
-        element = {}
+        element = OrderedDict()
 
         # Get required data using ASIN number
         url, title, image, description = GetData(i)
@@ -97,7 +105,7 @@ def CreateElement(list_name):
         element["subtitle"] = description[:80]
 
         # Default Action
-        default_action = {}
+        default_action = OrderedDict()
         default_action["type"] = "web_url"
         default_action["url"] = url
         default_action["messenger_extensions"] = True
@@ -105,7 +113,7 @@ def CreateElement(list_name):
 
         # Button of product
         button = []
-        button_1 = {}
+        button_1 = OrderedDict()
         button_1["type"] = "web_url"
         button_1["url"] = url
         button_1["title"] = "🎁 See on Amazon"
