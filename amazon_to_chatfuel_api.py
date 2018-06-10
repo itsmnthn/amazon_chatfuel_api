@@ -53,10 +53,10 @@ app = Flask(__name__, static_folder="static")
 @app.route('/detail/<keyword>')
 def sendList(keyword):
     """search key word on Amazon.com and return JSON API
-    
+
     Arguments:
         keyword {str} -- keyword that will be searched on Amazon
-    
+
     Returns:
         flask.current_app -- returns JSON as response with MIME
     """
