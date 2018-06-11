@@ -9,14 +9,14 @@ from flask import Flask, jsonify, request, current_app
 
 
 # Your Access Key ID, as taken from the Your Account page
-AWS_ACCESS_KEY_ID = "AKIAJUB2GKHOEXPHACDQ"
+AWS_ACCESS_KEY_ID = "AKIAJ3P3X7UGTI2QF2YA"
 
 # Your Secret Key corresponding to the above ID,
 # as taken from the Your Account page
-AWS_SECRET_ACCESS_KEY = "UFggpYybRfa4ba5ZZ6G8qk/iP8pySLWTcFAn1r95"
+AWS_SECRET_ACCESS_KEY = "AXzurPGEYhf9E4GHiGh/2Y/chYlNqd+a3b1cw0Js"
 
 # Your Associate Tag
-AWS_ASSOCIATE_TAG = "uberminicourse-20"
+AWS_ASSOCIATE_TAG = "worldcup-20"
 
 link = "https://amazon-to-chatfuel-api.herokuapp.com"
 
