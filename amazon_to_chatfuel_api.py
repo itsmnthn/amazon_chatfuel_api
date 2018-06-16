@@ -9,16 +9,16 @@ from flask import Flask, jsonify, request, current_app
 
 
 # Your Access Key ID, as taken from the Your Account page
-AWS_ACCESS_KEY_ID = "AKIAJUB2GKHOEXPHACDQ"
+AWS_ACCESS_KEY_ID = ""
 
 # Your Secret Key corresponding to the above ID,
 # as taken from the Your Account page
-AWS_SECRET_ACCESS_KEY = "UFggpYybRfa4ba5ZZ6G8qk/iP8pySLWTcFAn1r95"
+AWS_SECRET_ACCESS_KEY = ""
 
 # Your Associate Tag
-AWS_ASSOCIATE_TAG = "worldcup-20" # "uberminicourse-20"
+AWS_ASSOCIATE_TAG = "" # ""
 
-link = "https://amazon-to-chatfuel-api.herokuapp.com"
+link = ""
 
 
 def queryToGetASINs(searchterm):
@@ -166,6 +166,6 @@ def GetData(asin):
     return url, title, image, description
 
 
-app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RV'
+app.secret_key = ''
 if __name__ == "__main__":
     app.run(port=9000)
